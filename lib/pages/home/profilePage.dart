@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/userModel.dart';
+import 'package:shamo_app/provider/authProvider.dart';
 
 import '../../theme.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return AppBar(
         backgroundColor: backColor1,
@@ -20,6 +26,10 @@ class ProfilePage extends StatelessWidget {
                     'assets/images/Default_Profile.png',
                     width: 64.0,
                   ),
+                  // child: Image.network(
+                  //   'user.profilePhotoUrl',
+                  //   width: 64.0,
+                  // ),
                 ),
                 SizedBox(
                   width: 12.0,
@@ -28,11 +38,11 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Hello, Irvan',
+                      Text('Hello, ${user.name}',
                           style: primaryTextStyle.copyWith(
                               fontWeight: semiBold, fontSize: 24.0)),
                       Text(
-                        '@irvn.sndy',
+                        '@${user.username}',
                         style: subTitleTextStyle.copyWith(
                             fontWeight: regular, fontSize: 16.0),
                       )
@@ -96,8 +106,7 @@ class ProfilePage extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: () => Navigator.pushNamed(context, '/editProfile'),
-                child: menuItem('Edit Profile')
-            ),
+                child: menuItem('Edit Profile')),
             menuItem('Your Orders'),
             menuItem('Help'),
             SizedBox(

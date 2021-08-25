@@ -13,11 +13,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    
-    Timer(
-      Duration(seconds: 3),
-      () => Navigator.pushNamed(context, '/signIn')
-    );
+    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/signIn'));
 
     super.initState();
   }
@@ -27,13 +23,15 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: backColor1,
       body: Center(
-          child: Container(
-        width: 130.0,
-        height: 150.0,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/Union.png')),
+        child: Container(
+          width: 130.0,
+          height: 150.0,
+          decoration: BoxDecoration(
+            image:
+                DecorationImage(image: AssetImage('assets/images/Union.png')),
+          ),
         ),
-      )),
+      ),
     );
   }
 }

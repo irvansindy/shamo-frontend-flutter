@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/userModel.dart';
+import 'package:shamo_app/provider/authProvider.dart';
 // import 'package:flutter/services.dart';
 import 'package:shamo_app/theme.dart';
 
 class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     PreferredSize header() {
       return PreferredSize(
         preferredSize: Size.fromHeight(60.0),
@@ -42,15 +48,15 @@ class EditProfile extends StatelessWidget {
             Text(
               'Name',
               style: secondaryTextStyle.copyWith(
-                fontWeight: regular,
-                fontSize: 13.0
-              ),
+                  fontWeight: regular, fontSize: 13.0),
             ),
-            SizedBox(height: 4.0,),
+            SizedBox(
+              height: 4.0,
+            ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'Irvan Muhammad Sindy',
+                hintText: '${user.name}',
                 hintStyle: primaryTextStyle.copyWith(
                   fontWeight: regular,
                   fontSize: 16,
@@ -64,6 +70,7 @@ class EditProfile extends StatelessWidget {
         ),
       );
     }
+
     Widget inputUsername() {
       return Container(
         margin: EdgeInsets.only(top: defaultMargin),
@@ -73,15 +80,15 @@ class EditProfile extends StatelessWidget {
             Text(
               'Username',
               style: secondaryTextStyle.copyWith(
-                fontWeight: regular,
-                fontSize: 13.0
-              ),
+                  fontWeight: regular, fontSize: 13.0),
             ),
-            SizedBox(height: 4.0,),
+            SizedBox(
+              height: 4.0,
+            ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: '@irvn.sndy',
+                hintText: '@${user.username}',
                 hintStyle: primaryTextStyle.copyWith(
                   fontWeight: regular,
                   fontSize: 16,
@@ -105,15 +112,15 @@ class EditProfile extends StatelessWidget {
             Text(
               'Email Address',
               style: secondaryTextStyle.copyWith(
-                fontWeight: regular,
-                fontSize: 13.0
-              ),
+                  fontWeight: regular, fontSize: 13.0),
             ),
-            SizedBox(height: 4.0,),
+            SizedBox(
+              height: 4.0,
+            ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'irvanmuhammad22@gmail.com',
+                hintText: '${user.email}',
                 hintStyle: primaryTextStyle.copyWith(
                   fontWeight: regular,
                   fontSize: 16,
@@ -144,8 +151,9 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: AssetImage(
-                  'assets/images/Default_Profile.png',
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/images/Default_Profile.png',
                   ),
                 ),
               ),

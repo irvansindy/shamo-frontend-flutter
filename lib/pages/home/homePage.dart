@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/userModel.dart';
+import 'package:shamo_app/provider/authProvider.dart';
 import 'package:shamo_app/widget/productCard.dart';
 import 'package:shamo_app/widget/productTile.dart';
 import '../../theme.dart';
@@ -6,6 +9,9 @@ import '../../theme.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -20,14 +26,18 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hello, Irvan',
+                    'Hello, ${user.name}',
                     style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold, fontSize: 24.0),
+                      fontWeight: semiBold,
+                      fontSize: 24.0,
+                    ),
                   ),
                   Text(
-                    '@irvn.sndy',
+                    '@${user.username}',
                     style: subTitleTextStyle.copyWith(
-                        fontWeight: regular, fontSize: 16.0),
+                      fontWeight: regular,
+                      fontSize: 16.0,
+                    ),
                   )
                 ],
               ),
@@ -38,7 +48,12 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage('assets/images/Default_Profile.png'),
+                  // image: AssetImage(
+                  //   'assets/images/Default_Profile.png',
+                  // ),
+                  image: NetworkImage(
+                    'user.profilePhotoUrl',
+                  ),
                 ),
               ),
             ),
@@ -145,11 +160,16 @@ class HomePage extends StatelessWidget {
     Widget popularProductsTitle() {
       return Container(
         margin: EdgeInsets.only(
-            top: defaultMargin, left: defaultMargin, right: defaultMargin),
+          top: defaultMargin,
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
         child: Text(
           'Popular Products',
-          style:
-              primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 22.0),
+          style: primaryTextStyle.copyWith(
+            fontWeight: semiBold,
+            fontSize: 22.0,
+          ),
         ),
       );
     }

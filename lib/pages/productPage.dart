@@ -83,12 +83,14 @@ class _ProductPageState extends State<ProductPage> {
           ),
           CarouselSlider(
             items: images
-                .map((image) => Image.asset(
-                      image,
-                      width: MediaQuery.of(context).size.width,
-                      height: 300.0,
-                      fit: BoxFit.cover,
-                    ))
+                .map(
+                  (image) => Image.asset(
+                    image,
+                    width: MediaQuery.of(context).size.width,
+                    height: 300.0,
+                    fit: BoxFit.cover,
+                  ),
+                )
                 .toList(),
             options: CarouselOptions(
                 initialPage: 0,
