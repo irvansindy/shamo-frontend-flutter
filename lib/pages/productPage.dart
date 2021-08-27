@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:shamo_app/models/productModel.dart';
 import 'package:shamo_app/theme.dart';
 
 class ProductPage extends StatefulWidget {
+  final ProductModel product;
+  ProductPage(this.product);
+
   @override
   _ProductPageState createState() => _ProductPageState();
 }
@@ -82,10 +86,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: images
+            items: widget.product.galleries
                 .map(
-                  (image) => Image.asset(
-                    image,
+                  (image) => Image.network(
+                    image.url!,
                     width: MediaQuery.of(context).size.width,
                     height: 300.0,
                     fit: BoxFit.cover,
@@ -105,7 +109,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images.map((e) {
+            children: widget.product.galleries.map((e) {
               index++;
               return indicator(index);
             }).toList(),
@@ -143,12 +147,12 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Ultraboots 20 Shoes',
+                          widget.product.name!,
                           style: primaryTextStyle.copyWith(
                               fontWeight: semiBold, fontSize: 18.0),
                         ),
                         Text(
-                          'Running',
+                          widget.product.category.name!,
                           style: subTitleTextStyle.copyWith(
                               fontWeight: regular, fontSize: 12.0),
                         ),
@@ -182,7 +186,7 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                   ),
                   Text(
-                    '\$60.20',
+                    '\$${widget.product.price!}',
                     style: priceTextStyle.copyWith(
                         fontWeight: semiBold, fontSize: 16.0),
                   )
@@ -209,7 +213,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12.0,
                   ),
                   Text(
-                    'Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.',
+                    widget.product.description!,
                     style: subTitleTextStyle.copyWith(fontWeight: light),
                     textAlign: TextAlign.justify,
                   )

@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:shamo_app/models/productModel.dart';
+import 'package:shamo_app/pages/productPage.dart';
 import 'package:shamo_app/theme.dart';
 
 class ProductTile extends StatelessWidget {
-  const ProductTile({Key? key}) : super(key: key);
+  final ProductModel product;
+  ProductTile(this.product);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/product'),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProductPage(product),
+        ),
+      ),
       child: Container(
         margin: EdgeInsets.only(
           left: defaultMargin,
@@ -18,8 +26,8 @@ class ProductTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
-              child: Image.asset(
-                'assets/images/Image_Sample.png',
+              child: Image.network(
+                product.galleries[0].url!,
                 width: 120.0,
                 height: 120.0,
                 fit: BoxFit.cover,
@@ -33,7 +41,7 @@ class ProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Running',
+                    product.category.name!,
                     style: secondaryTextStyle.copyWith(
                         fontWeight: regular, fontSize: 12.0),
                   ),
@@ -41,7 +49,7 @@ class ProductTile extends StatelessWidget {
                     height: 6.0,
                   ),
                   Text(
-                    'Ultraboots 20 Shoes',
+                    product.name!,
                     style: primaryTextStyle.copyWith(
                         fontWeight: semiBold, fontSize: 16.0),
                   ),
@@ -49,9 +57,11 @@ class ProductTile extends StatelessWidget {
                     height: 6.0,
                   ),
                   Text(
-                    '\$60.20',
+                    '\$${product.price!}',
                     style: priceTextStyle.copyWith(
-                        fontWeight: medium, fontSize: 14.0),
+                      fontWeight: medium,
+                      fontSize: 14.0,
+                    ),
                   )
                 ],
               ),
