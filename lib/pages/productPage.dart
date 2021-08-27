@@ -209,7 +209,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12.0,
                   ),
                   Text(
-                    'Unpaved trails and mixed surfaces are easy when you have the traction and support youneed. Casual enough for the daily commute.',
+                    'Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.',
                     style: subTitleTextStyle.copyWith(fontWeight: light),
                     textAlign: TextAlign.justify,
                   )

@@ -8,8 +8,6 @@ class AuthService {
   // String? baseUrl = 'http://127.0.0.1:8000/api';
   String? baseUrl = 'http://192.168.1.8:8000/api';
 
-  // get http => null;
-
   Future<UserModel> register({
     required String? name,
     required String? email,
