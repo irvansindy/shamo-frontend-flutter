@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shamo_app/models/productModel.dart';
+import 'package:shamo_app/provider/wishlistProvider.dart';
 import 'package:shamo_app/theme.dart';
 
 class ProductPage extends StatefulWidget {
@@ -33,6 +35,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     Widget indicator(int index) {
       return Container(
         width: currentIndex == index ? 16.0 : 4.0,
@@ -159,9 +163,37 @@ class _ProductPageState extends State<ProductPage> {
                       ],
                     ),
                   ),
-                  Image.asset(
-                    'assets/images/Before_Wistlist.png',
-                    width: 46.0,
+                  GestureDetector(
+                    onTap: () {
+                      wishlistProvider.setProduct(widget.product);
+                      if (wishlistProvider.isWishlist(widget.product)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: secondaryColor,
+                            content: Text(
+                              'Product has been added to Wishlist',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: alertColor,
+                            content: Text(
+                              'Product has been removed from Wishlist',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Image.asset(
+                      wishlistProvider.isWishlist(widget.product)
+                          ? 'assets/images/After_Wistlist.png'
+                          : 'assets/images/Before_Wistlist.png',
+                      width: 46.0,
+                    ),
                   ),
                 ],
               ),

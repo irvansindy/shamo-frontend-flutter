@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/productModel.dart';
+import 'package:shamo_app/provider/wishlistProvider.dart';
 import 'package:shamo_app/theme.dart';
 
 class WishlistCard extends StatelessWidget {
+  final ProductModel product;
+  WishlistCard(this.product);
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 20.0),
       padding:
@@ -14,8 +21,8 @@ class WishlistCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child: Image.asset(
-              'assets/images/Image_Sample.png',
+            child: Image.network(
+              product.galleries[0].url!,
               width: 60.0,
             ),
           ),
@@ -27,21 +34,35 @@ class WishlistCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Ultraboots 20 Shoes',
+                  product.name!,
                   style: primaryTextStyle.copyWith(
                     fontWeight: semiBold,
                   ),
                 ),
                 Text(
-                  '\$60.20',
+                  '\$${product.price!}',
                   style: priceTextStyle.copyWith(fontWeight: medium),
                 ),
               ],
             ),
           ),
-          Image.asset(
-            'assets/images/After_Wistlist.png',
-            width: 34.0,
+          GestureDetector(
+            onTap: () {
+              wishlistProvider.setProduct(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: alertColor,
+                  content: Text(
+                    'Product has been removed from Wishlist',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            },
+            child: Image.asset(
+              'assets/images/After_Wistlist.png',
+              width: 34.0,
+            ),
           ),
         ],
       ),
