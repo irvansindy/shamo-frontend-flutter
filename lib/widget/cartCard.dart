@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/cartModel.dart';
+import 'package:shamo_app/provider/cartProvider.dart';
 import 'package:shamo_app/theme.dart';
 
+// ignore: must_be_immutable
 class CartCard extends StatelessWidget {
+  final CartModel cart;
+  CartCard(this.cart);
+
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(
         top: 15.0,
@@ -27,7 +36,9 @@ class CartCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Image_Sample.png'),
+                    image: NetworkImage(
+                      cart.product.galleries[0].url!,
+                    ),
                   ),
                 ),
               ),
@@ -39,14 +50,14 @@ class CartCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ultraboots 20 Shoes',
+                      cart.product.name!,
                       style: primaryTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     SizedBox(
                       height: 2.0,
                     ),
                     Text(
-                      '\$60.20',
+                      '\$${cart.product.price!}',
                       style: priceTextStyle,
                     ),
                   ],
@@ -54,16 +65,19 @@ class CartCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Image.asset(
-                    'assets/images/Add.png',
-                    width: 16.0,
-                    height: 16.0,
+                  GestureDetector(
+                    onTap: () => cartProvider.addQuantity(cart.id!),
+                    child: Image.asset(
+                      'assets/images/Add.png',
+                      width: 16.0,
+                      height: 16.0,
+                    ),
                   ),
                   SizedBox(
                     height: 2.0,
                   ),
                   Text(
-                    '2',
+                    cart.quantity.toString(),
                     style: primaryTextStyle.copyWith(
                       fontWeight: medium,
                     ),
@@ -71,10 +85,13 @@ class CartCard extends StatelessWidget {
                   SizedBox(
                     height: 2.0,
                   ),
-                  Image.asset(
-                    'assets/images/Reduce.png',
-                    width: 16.0,
-                    height: 16.0,
+                  GestureDetector(
+                    onTap: () => cartProvider.reduceQuantity(cart.id!),
+                    child: Image.asset(
+                      'assets/images/Reduce.png',
+                      width: 16.0,
+                      height: 16.0,
+                    ),
                   ),
                 ],
               ),
@@ -83,24 +100,27 @@ class CartCard extends StatelessWidget {
           SizedBox(
             height: 12.0,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/images/Remove.png',
-                width: 10.0,
-                height: 12.0,
-              ),
-              SizedBox(
-                width: 4.0,
-              ),
-              Text(
-                'Remove',
-                style: redTextStyle.copyWith(
-                  fontWeight: light,
-                  fontSize: 12.0,
+          GestureDetector(
+            onTap: () => cartProvider.removeCart(cart.id!),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/Remove.png',
+                  width: 10.0,
+                  height: 12.0,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 4.0,
+                ),
+                Text(
+                  'Remove',
+                  style: redTextStyle.copyWith(
+                    fontWeight: light,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
