@@ -7,10 +7,10 @@ class ProductModel {
   double? price;
   String? description;
   String? tags;
-  late CategoryModel category;
+  CategoryModel? category;
+  List<GalleryModel>? galleries;
   DateTime? createAt;
   DateTime? updateAt;
-  late List<GalleryModel> galleries;
 
   ProductModel({
     this.id,
@@ -18,8 +18,8 @@ class ProductModel {
     this.price,
     this.description,
     this.tags,
-    required this.category,
-    required this.galleries,
+    this.category,
+    this.galleries,
     this.createAt,
     this.updateAt,
   });
@@ -45,10 +45,16 @@ class ProductModel {
       'price': price,
       'tags': tags,
       'description': description,
-      'category': category.toJson(),
-      'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
+      'category': category!.toJson(),
+      'galleries': galleries!.map((gallery) => gallery.toJson()).toList(),
       'created_at': createAt.toString(),
       'updated_at': updateAt.toString(),
     };
   }
+}
+
+class UninitializedProductModel extends ProductModel {
+  // UninitializedProductModel() : super();
+  // UninitializedProductModel.fromJson(Map<String, dynamic> json)
+  //     : super.fromJson(json);
 }

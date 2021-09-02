@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
               height: 30.0,
             ),
             Image.network(
-              product.galleries[0].url!,
+              product.galleries![0].url!,
               height: 150.0,
               width: 215.0,
               fit: BoxFit.cover,
@@ -44,7 +44,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category.name!,
+                    product.category!.name!,
                     style: secondaryTextStyle.copyWith(
                         fontWeight: regular, fontSize: 12.0),
                   ),

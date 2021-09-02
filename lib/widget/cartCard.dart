@@ -37,7 +37,7 @@ class CartCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
                     image: NetworkImage(
-                      cart.product.galleries[0].url!,
+                      cart.product.galleries![0].url!,
                     ),
                   ),
                 ),

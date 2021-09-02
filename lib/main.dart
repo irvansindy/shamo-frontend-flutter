@@ -1,9 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo_app/pages/cartPage.dart';
 import 'package:shamo_app/pages/checkoutPage.dart';
 import 'package:shamo_app/pages/checkoutSuccessPage.dart';
-import 'package:shamo_app/pages/detailChat.dart';
 import 'package:shamo_app/pages/editProfile.dart';
 import 'package:shamo_app/pages/home/mainPage.dart';
 import 'package:shamo_app/pages/signInPage.dart';
@@ -15,7 +15,11 @@ import 'package:shamo_app/provider/productProvider.dart';
 import 'package:shamo_app/provider/transactionProvider.dart';
 import 'package:shamo_app/provider/wishlistProvider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -45,7 +49,6 @@ class MyApp extends StatelessWidget {
           '/signIn': (context) => SignInPage(),
           '/signUp': (context) => SignUpPage(),
           '/home': (context) => MainPage(),
-          '/chat': (context) => DetailChatPage(),
           '/editProfile': (context) => EditProfile(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),

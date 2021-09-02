@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo_app/models/productModel.dart';
+import 'package:shamo_app/pages/detailChat.dart';
 import 'package:shamo_app/provider/cartProvider.dart';
 import 'package:shamo_app/provider/wishlistProvider.dart';
 import 'package:shamo_app/theme.dart';
@@ -92,7 +93,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: widget.product.galleries
+            items: widget.product.galleries!
                 .map(
                   (image) => Image.network(
                     image.url!,
@@ -115,7 +116,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.product.galleries.map((e) {
+            children: widget.product.galleries!.map((e) {
               index++;
               return indicator(index);
             }).toList(),
@@ -158,7 +159,7 @@ class _ProductPageState extends State<ProductPage> {
                               fontWeight: semiBold, fontSize: 18.0),
                         ),
                         Text(
-                          widget.product.category.name!,
+                          widget.product.category!.name!,
                           style: subTitleTextStyle.copyWith(
                               fontWeight: regular, fontSize: 12.0),
                         ),
@@ -293,12 +294,22 @@ class _ProductPageState extends State<ProductPage> {
               margin: EdgeInsets.all(defaultMargin),
               child: Row(
                 children: [
-                  Container(
-                    width: 54.0,
-                    height: 54.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Button_Chat.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailChatPage(widget.product),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 54.0,
+                      height: 54.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Button_Chat.png'),
+                        ),
                       ),
                     ),
                   ),

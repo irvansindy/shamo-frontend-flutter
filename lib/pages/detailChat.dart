@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shamo_app/models/productModel.dart';
 import 'package:shamo_app/theme.dart';
 import 'package:shamo_app/widget/chatBubble.dart';
 
-class DetailChatPage extends StatelessWidget {
+// ignore: must_be_immutable
+class DetailChatPage extends StatefulWidget {
+  ProductModel product;
+  DetailChatPage(this.product);
+
+  @override
+  _DetailChatPageState createState() => _DetailChatPageState();
+}
+
+class _DetailChatPageState extends State<DetailChatPage> {
   @override
   Widget build(BuildContext context) {
     // app bar cant use with widget
@@ -58,8 +68,8 @@ class DetailChatPage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: Image.asset(
-                'assets/images/Image_Sample.png',
+              child: Image.network(
+                widget.product.galleries![0].url!,
                 width: 54.0,
                 height: 54.0,
               ),
@@ -73,7 +83,7 @@ class DetailChatPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Ultraboots 20 Shoes',
+                    widget.product.name!,
                     style: primaryTextStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -81,16 +91,23 @@ class DetailChatPage extends StatelessWidget {
                     height: 2.0,
                   ),
                   Text(
-                    '\$60.20',
+                    '\$ ${widget.product.price!}',
                     style: priceTextStyle.copyWith(fontWeight: medium),
                   ),
                 ],
               ),
             ),
-            Image.asset(
-              'assets/images/Close.png',
-              height: 22.0,
-              width: 22.0,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  widget.product = UninitializedProductModel();
+                });
+              },
+              child: Image.asset(
+                'assets/images/Close.png',
+                height: 22.0,
+                width: 22.0,
+              ),
             ),
           ],
         ),
@@ -104,7 +121,9 @@ class DetailChatPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            productPreview(),
+            widget.product is UninitializedProductModel
+                ? SizedBox()
+                : productPreview(),
             Row(
               children: [
                 Expanded(
