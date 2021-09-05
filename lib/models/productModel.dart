@@ -53,8 +53,4 @@ class ProductModel {
   }
 }
 
-class UninitializedProductModel extends ProductModel {
-  // UninitializedProductModel() : super();
-  // UninitializedProductModel.fromJson(Map<String, dynamic> json)
-  //     : super.fromJson(json);
-}
+class UninitializedProductModel extends ProductModel {}
