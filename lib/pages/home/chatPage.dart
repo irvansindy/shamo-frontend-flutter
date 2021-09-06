@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/messageModel.dart';
+import 'package:shamo_app/provider/authProvider.dart';
+import 'package:shamo_app/services/messageService.dart';
 import 'package:shamo_app/widget/chatTile.dart';
 
 import '../../theme.dart';
@@ -6,6 +10,8 @@ import '../../theme.dart';
 class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     Widget header() {
       return AppBar(
         backgroundColor: backColor1,
@@ -19,7 +25,7 @@ class ChatPage extends StatelessWidget {
       );
     }
 
-    /*  Widget emptyChat() {
+    Widget emptyChat() {
       return Expanded(
         child: Container(
           color: backColor3,
@@ -72,27 +78,41 @@ class ChatPage extends StatelessWidget {
           ),
         ),
       );
-    } */
+    }
 
     Widget contentChat() {
-      return Expanded(
-        child: Container(
-          width: double.infinity,
-          color: backColor3,
-          child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
-            children: [ChatTile()],
-          ),
-        ),
-      );
+      return StreamBuilder<List<MessageModel>>(
+          stream:
+              MessageService().getMessageByUserId(userId: authProvider.user.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.length == 0) {
+                return emptyChat();
+              }
+
+              return Expanded(
+                child: Container(
+                  width: double.infinity,
+                  color: backColor3,
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: defaultMargin,
+                    ),
+                    children: [
+                      ChatTile(snapshot.data![snapshot.data!.length - 1])
+                    ],
+                  ),
+                ),
+              );
+            } else {
+              return emptyChat();
+            }
+          });
     }
 
     return Column(
       children: [
         header(),
-        // emptyChat(),
         contentChat()
       ],
     );

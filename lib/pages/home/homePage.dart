@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(
-                    'user.profilePhotoUrl',
+                    user.profilePhotoUrl!,
                   ),
                 ),
               ),
@@ -221,15 +221,17 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return ListView(
-      children: [
-        header(),
-        categories(),
-        popularProductsTitle(),
-        popularProducts(),
-        newArrivalProductsTitle(),
-        newArrivalProducts(),
-      ],
+    return SafeArea(
+      child: ListView(
+        children: [
+          header(),
+          categories(),
+          popularProductsTitle(),
+          popularProducts(),
+          newArrivalProductsTitle(),
+          newArrivalProducts(),
+        ],
+      ),
     );
   }
 }

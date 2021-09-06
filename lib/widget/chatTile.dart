@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shamo_app/models/messageModel.dart';
 import 'package:shamo_app/models/productModel.dart';
 import 'package:shamo_app/pages/detailChat.dart';
 import 'package:shamo_app/theme.dart';
 
 class ChatTile extends StatelessWidget {
+  final MessageModel message;
+  ChatTile(this.message);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,7 +41,7 @@ class ChatTile extends StatelessWidget {
                           fontWeight: regular, fontSize: 15.0),
                     ),
                     Text(
-                      'Good night, have a nice dream baby',
+                      message.message!,
                       style: secondaryTextStyle.copyWith(
                         fontWeight: light,
                       ),
