@@ -51,7 +51,7 @@ class ChatTile extends StatelessWidget {
                 ),
               ),
               Text(
-                'Now',
+                message.createdAt!.toString(),
                 style: secondaryTextStyle.copyWith(
                     fontWeight: regular, fontSize: 10.0),
               ),

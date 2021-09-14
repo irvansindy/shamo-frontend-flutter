@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shamo_app/provider/pageProvider.dart';
 import 'package:shamo_app/provider/wishlistProvider.dart';
 import 'package:shamo_app/widget/wishlistCard.dart';
 
@@ -9,6 +10,7 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     Widget header() {
       return AppBar(
@@ -57,7 +59,9 @@ class WishlistPage extends StatelessWidget {
               Container(
                 height: 44.0,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      pageProvider.currentIndex = 0;
+                    },
                     style: TextButton.styleFrom(
                         padding: EdgeInsets.symmetric(
                             horizontal: 24.0, vertical: 10.0),
