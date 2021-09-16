@@ -5,7 +5,7 @@ import 'package:shamo_app/models/categoryModel.dart';
 class CategoryService {
   // String? baseUrl = 'http://10.0.2.2:8000/api';
   // String? baseUrl = 'http://127.0.0.1:8000/api';
-  String? baseUrl = 'http://192.168.1.9:8000/api';
+  String? baseUrl = 'http://192.168.1.7:8000/api';
 
   Future<List<CategoryModel>> getCategories() async {
     var url = '$baseUrl/categories';

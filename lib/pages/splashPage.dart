@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shamo_app/provider/categoryProvider.dart';
 import 'package:shamo_app/provider/productProvider.dart';
 import 'package:shamo_app/theme.dart';
 
@@ -20,6 +21,7 @@ class _SplashPageState extends State<SplashPage> {
 
   getInit() async {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    await Provider.of<CategoryProvider>(context, listen: false).getCategories();
     Navigator.pushNamed(context, '/signIn');
   }
 

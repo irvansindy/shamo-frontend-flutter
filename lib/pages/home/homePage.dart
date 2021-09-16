@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo_app/models/userModel.dart';
 import 'package:shamo_app/provider/authProvider.dart';
+import 'package:shamo_app/provider/categoryProvider.dart';
 import 'package:shamo_app/provider/productProvider.dart';
+import 'package:shamo_app/widget/categoryTile.dart';
 import 'package:shamo_app/widget/productCard.dart';
 import 'package:shamo_app/widget/productTile.dart';
 import '../../theme.dart';
@@ -13,6 +15,7 @@ class HomePage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
 
     Widget header() {
       return Container(
@@ -73,82 +76,12 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: defaultMargin,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                margin: EdgeInsets.only(right: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: primaryColor,
-                ),
-                child: Text(
-                  'All Shoes',
-                  style: primaryTextStyle.copyWith(
-                      fontWeight: medium, fontSize: 13.0),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                margin: EdgeInsets.only(right: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: subTitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subTitleTextStyle.copyWith(
-                      fontWeight: medium, fontSize: 13.0),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                margin: EdgeInsets.only(right: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: subTitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Training',
-                  style: subTitleTextStyle.copyWith(
-                      fontWeight: medium, fontSize: 13.0),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                margin: EdgeInsets.only(right: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: subTitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'BasketBall',
-                  style: subTitleTextStyle.copyWith(
-                      fontWeight: medium, fontSize: 13.0),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                margin: EdgeInsets.only(right: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: subTitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Hiking',
-                  style: subTitleTextStyle.copyWith(
-                      fontWeight: medium, fontSize: 13.0),
-                ),
+              Row(
+                children: categoryProvider.categories
+                    .map(
+                      (categories) => CategoryTile(categories),
+                    )
+                    .toList(),
               ),
             ],
           ),
